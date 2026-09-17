@@ -23,3 +23,8 @@ def generate_pass(length, array, is_alpha = False):
                 character = character.upper()
     password.append(character)
 
+generate_pass(alpha_len, alpha, True)
+generate_pass(num_len, num)
+generate_pass(special_len, special)
+
+random.shuffle(password)
