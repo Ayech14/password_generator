@@ -12,3 +12,14 @@ num_len = math.ceil(pass_len * 30 / 100)
 special_len = pass_len - (alpha_len + num_len)
 
 password = []
+
+def generate_pass(length, array, is_alpha = False):
+    for i in length:
+        index = random.randint(0, len(array) - 1)
+        character = array[index]
+        if is_alpha:
+            case = random.randint(0,1)
+            if case == 1:
+                character = character.upper()
+    password.append(character)
+
