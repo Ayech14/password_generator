@@ -33,6 +33,34 @@ def generate_password(length, use_uppercase, use_numbers, use_special):
 
     return "".join(password)
 
+
+def calculate_strength(password):
+    score = 0
+
+    if len(password) >= 8:
+        score += 1
+
+    if any(character.islower() for character in password):
+        score += 1
+
+    if any(character.isupper() for character in password):
+        score += 1
+
+    if any(character.isdigit() for character in password):
+        score += 1
+
+    if any(character in special for character in password):
+        score += 1
+
+    if score <= 2:
+        return "Weak"
+
+    if score <= 4:
+        return "Medium"
+
+    return "Strong"
+
+
 def get_yes_no(prompt):
     while True:
         answer = input(prompt).lower()
@@ -88,4 +116,7 @@ gen_password = generate_password(
     use_special
 )
 
+strength = calculate_strength(gen_password)
+
 print(f"Generated Password: {gen_password}")
+print(f"Password Strength: {strength}")
