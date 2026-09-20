@@ -109,14 +109,21 @@ if pass_len < selected_categories:
         "for the selected options."
     )
     exit()
-gen_password = generate_password(
-    pass_len,
-    use_uppercase,
-    use_numbers,
-    use_special
-)
+while True:
+    gen_password = generate_password(
+        pass_len,
+        use_uppercase,
+        use_numbers,
+        use_special
+    )
 
-strength = calculate_strength(gen_password)
+    strength = calculate_strength(gen_password)
 
-print(f"Generated Password: {gen_password}")
-print(f"Password Strength: {strength}")
+    print(f"\nGenerated Password: {gen_password}")
+    print(f"Password Strength: {strength}")
+
+    generate_again = get_yes_no("Generate another password? (y/n): ")
+
+    if not generate_again:
+        print("Goodbye!")
+        break
