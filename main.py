@@ -1,4 +1,3 @@
-import math
 import secrets
 
 
@@ -7,38 +6,44 @@ num = "0123456789"
 special = "@#$%&*"
 
 
-def generate_pass(length, array, is_alpha=False):
-    characters = []
 
-    for i in range(length):
-        index = secrets.randbelow(len(array))
-        character = array[index]
-
-        if is_alpha:
-            case = secrets.randbelow(2)
-
-            if case == 1:
-                character = character.upper()
-
-        characters.append(character)
-
-    return characters
-
-
-def generate_password(pass_len):
-    alpha_len = pass_len // 2
-    num_len = math.ceil(pass_len * 30 / 100)
-    special_len = pass_len - (alpha_len + num_len)
-
+def generate_password(length, use_uppercase, use_numbers, use_special):
+    characters = alpha
     password = []
 
-    password += generate_pass(alpha_len, alpha, True)
-    password += generate_pass(num_len, num)
-    password += generate_pass(special_len, special)
+    if use_uppercase:
+        characters += alpha.upper()
+        password.append(alpha.upper()[secrets.randbelow(len(alpha))])
+
+    if use_numbers:
+        characters += num
+        password.append(num[secrets.randbelow(len(num))])
+
+    if use_special:
+        characters += special
+        password.append(special[secrets.randbelow(len(special))])
+
+    remaining = length - len(password)
+
+    for i in range(remaining):
+        index = secrets.randbelow(len(characters))
+        password.append(characters[index])
 
     secrets.SystemRandom().shuffle(password)
 
     return "".join(password)
+
+def get_yes_no(prompt):
+    while True:
+        answer = input(prompt).lower()
+
+        if answer in ("y", "yes"):
+            return True
+
+        if answer in ("n", "no"):
+            return False
+
+        print("Please enter yes or no.")
 
 
 while True:
@@ -55,6 +60,32 @@ while True:
         print("Please enter a valid number.")
 
 
-gen_password = generate_password(pass_len)
+use_uppercase = get_yes_no("Include uppercase letters? (y/n): ")
+use_numbers = get_yes_no("Include numbers? (y/n): ")
+use_special = get_yes_no("Include special characters? (y/n): ")
+
+selected_categories = 1
+
+if use_uppercase:
+    selected_categories += 1
+
+if use_numbers:
+    selected_categories += 1
+
+if use_special:
+    selected_categories += 1
+
+if pass_len < selected_categories:
+    print(
+        f"Password length must be at least {selected_categories} "
+        "for the selected options."
+    )
+    exit()
+gen_password = generate_password(
+    pass_len,
+    use_uppercase,
+    use_numbers,
+    use_special
+)
 
 print(f"Generated Password: {gen_password}")
