@@ -7,6 +7,10 @@ st.title("🔐 Password Generator")
 
 st.write("Create a secure password with customizable options.")
 
+st.divider()
+
+st.subheader("Password Settings")
+
 
 length = st.slider(
     "Password Length",
@@ -15,12 +19,19 @@ length = st.slider(
     value=12
 )
 
-use_uppercase = st.checkbox("Include uppercase letters", value=True)
-use_numbers = st.checkbox("Include numbers", value=True)
-use_special = st.checkbox("Include special characters", value=True)
+col1, col2, col3 = st.columns(3)
+
+with col1:
+    use_uppercase = st.checkbox("Uppercase", value=True)
+
+with col2:
+    use_numbers = st.checkbox("Numbers", value=True)
+
+with col3:
+    use_special = st.checkbox("Special", value=True)
 
 
-if st.button("Generate Password"):
+if st.button("Generate Password", use_container_width=True):
     password = generate_password(
         length,
         use_uppercase,
@@ -30,7 +41,10 @@ if st.button("Generate Password"):
 
     strength = calculate_strength(password)
 
-    st.subheader("Generated Password")
-    st.code(password)
+    st.divider()
 
-    st.write(f"**Password Strength:** {strength}")
+    st.subheader("Generated Password")
+
+    st.code(password, language=None)
+
+    st.markdown(f"**Password Strength:** `{strength}`")
