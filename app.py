@@ -2,6 +2,11 @@ import streamlit as st
 
 from password_generator import generate_password, calculate_strength
 
+if "password" not in st.session_state:
+    st.session_state.password = None
+
+if "strength" not in st.session_state:
+    st.session_state.strength = None
 
 st.title("🔐 Password Generator")
 
@@ -32,19 +37,24 @@ with col3:
 
 
 if st.button("Generate Password", use_container_width=True):
-    password = generate_password(
+    st.session_state.password = generate_password(
         length,
         use_uppercase,
         use_numbers,
         use_special
     )
 
-    strength = calculate_strength(password)
+    st.session_state.strength = calculate_strength(
+        st.session_state.password
+    )
 
+if st.session_state.password:
     st.divider()
 
     st.subheader("Generated Password")
 
-    st.code(password, language=None)
+    st.code(st.session_state.password, language=None)
 
-    st.markdown(f"**Password Strength:** `{strength}`")
+    st.markdown(
+        f"**Password Strength:** `{st.session_state.strength}`"
+    )
