@@ -55,6 +55,13 @@ if st.session_state.password:
 
     st.code(st.session_state.password, language=None)
 
-    st.markdown(
-        f"**Password Strength:** `{st.session_state.strength}`"
-    )
+    strength = st.session_state.strength
+
+    if strength == "Strong":
+        st.progress(1.0)
+    elif strength == "Medium":
+        st.progress(0.6)
+    else:
+        st.progress(0.3)
+
+    st.markdown(f"**Password Strength:** {strength}")
