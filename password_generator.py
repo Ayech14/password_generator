@@ -7,6 +7,7 @@ special = "@#$%&*"
 
 
 def generate_password(length, use_uppercase, use_numbers, use_special):
+    """Generate a password based on the selected character options."""
     characters = alpha
     password = []
 
@@ -34,6 +35,8 @@ def generate_password(length, use_uppercase, use_numbers, use_special):
 
 
 def calculate_strength(password):
+    """Estimate password strength based on length and character variety."""
+
     score = 0
 
     if len(password) >= 8:
