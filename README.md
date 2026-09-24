@@ -6,8 +6,9 @@ The application allows users to generate passwords based on their preferred leng
 
 ## 🚀 Live Demo
 
-Coming soon: The application will be deployed with Streamlit Community Cloud.
+Try the live application here:
 
+👉 [Password Generator](https://passwordgenerator-ayech14.streamlit.app/)
 ## ✨ Features
 
 - Custom password length from 4 to 50 characters
