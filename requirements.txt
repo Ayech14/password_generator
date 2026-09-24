@@ -1,1 +1,1 @@
-streamlit==Version: 1.64.0
+streamlit==1.64.0
