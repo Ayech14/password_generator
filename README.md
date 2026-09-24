@@ -5,6 +5,10 @@ A secure and customizable password generator built with Python and Streamlit.
 The application allows users to generate passwords based on their preferred
 length and character types, while also providing a password strength indicator.
 
+## 🚀 Live Demo
+
+Coming soon: The application will be deployed with Streamlit Community Cloud.
+
 ## Features
 
 - Custom password length from 4 to 50 characters
